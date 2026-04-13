@@ -1,5 +1,39 @@
 # WOKWI Simulator Setup Guide
 
+## Quick Start (5 Minutes)
+
+### 1. Install WOKWI Extension
+- Open VS Code
+- Go to Extensions (`Ctrl+Shift+X`)
+- Search for `WOKWI Simulator`
+- Install
+
+### 2. Build Simulator Firmware
+
+Preferred:
+```bash
+cd /home/jfgalvao/GreenerDays/greener-days
+bash scripts/sim-build.sh
+```
+
+Alternative:
+```bash
+cd /home/jfgalvao/GreenerDays/greener-days/firmware
+pio run -e heltec_wifi_lora_32_V2_sim
+```
+
+### 3. Run WOKWI
+- Open `firmware/diagram.json`
+- Press `Ctrl+Shift+P`
+- Run `WOKWI: Run`
+
+### 4. First Test
+- Open Serial Monitor
+- Type `pump on` then Enter
+- Type `pump off` then Enter
+
+If the build fails with `pio: command not found`, use the helper script command above.
+
 ## What is WOKWI?
 
 **WOKWI** is a free online simulator for Arduino, ESP32, and other microcontrollers. It allows you to:
