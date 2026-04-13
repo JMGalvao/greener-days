@@ -3,240 +3,87 @@
   "author": "GreenerDays Project",
   "title": "GreenerDays - Plant Monitoring Simulator",
   "description": "Smart plant monitoring system with simulated sensors",
-  "width": 800,
-  "height": 600,
   "components": [
     {
       "type": "wokwi-esp32-devkit-v1",
       "id": "esp32",
       "top": 50,
-      "left": 250,
+      "left": 200,
       "attrs": {}
     },
     {
       "type": "wokwi-potentiometer",
       "id": "light1_pot",
-      "top": 100,
-      "left": 50,
-      "label": "Light 1",
-      "attrs": { "value": "50" }
+      "top": 20,
+      "left": -100,
+      "attrs": { "value": "0.5", "label": "Light 1" }
     },
     {
       "type": "wokwi-potentiometer",
       "id": "light2_pot",
-      "top": 200,
-      "left": 50,
-      "label": "Light 2",
-      "attrs": { "value": "75" }
+      "top": 110,
+      "left": -100,
+      "attrs": { "value": "0.75", "label": "Light 2" }
     },
     {
       "type": "wokwi-potentiometer",
       "id": "temp_pot",
-      "top": 300,
-      "left": 50,
-      "label": "Temperature",
-      "attrs": { "value": "45" }
+      "top": 200,
+      "left": -100,
+      "attrs": { "value": "0.45", "label": "Temperature" }
     },
     {
       "type": "wokwi-potentiometer",
       "id": "humidity_pot",
-      "top": 400,
-      "left": 50,
-      "label": "Soil Humidity",
-      "attrs": { "value": "60" }
+      "top": 290,
+      "left": -100,
+      "attrs": { "value": "0.6", "label": "Soil Humidity" }
     },
     {
       "type": "wokwi-potentiometer",
       "id": "water_level_pot",
-      "top": 500,
-      "left": 50,
-      "label": "Water Level",
-      "attrs": { "value": "80" }
+      "top": 380,
+      "left": -100,
+      "attrs": { "value": "0.8", "label": "Water Level" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 50,
+      "left": 490,
+      "attrs": { "value": "220" }
     },
     {
       "type": "wokwi-led",
       "id": "pump_led",
-      "top": 100,
-      "left": 600,
-      "label": "Pump Status",
-      "attrs": { "color": "red" }
-    },
-    {
-      "type": "wokwi-lcd1602",
-      "id": "lcd",
-      "top": 200,
-      "left": 550,
-      "attrs": {}
+      "top": 20,
+      "left": 560,
+      "attrs": { "color": "red", "label": "Pump" }
     }
   ],
   "connections": [
-    [
-      "light1_pot",
-      "GND",
-      "esp32",
-      "GND",
-      "black",
-      []
-    ],
-    [
-      "light1_pot",
-      "VCC",
-      "esp32",
-      "3V3",
-      "red",
-      []
-    ],
-    [
-      "light1_pot",
-      "SIG",
-      "esp32",
-      "36",
-      "green",
-      []
-    ],
-    [
-      "light2_pot",
-      "GND",
-      "esp32",
-      "GND",
-      "black",
-      []
-    ],
-    [
-      "light2_pot",
-      "VCC",
-      "esp32",
-      "3V3",
-      "red",
-      []
-    ],
-    [
-      "light2_pot",
-      "SIG",
-      "esp32",
-      "39",
-      "green",
-      []
-    ],
-    [
-      "temp_pot",
-      "GND",
-      "esp32",
-      "GND",
-      "black",
-      []
-    ],
-    [
-      "temp_pot",
-      "VCC",
-      "esp32",
-      "3V3",
-      "red",
-      []
-    ],
-    [
-      "temp_pot",
-      "SIG",
-      "esp32",
-      "34",
-      "green",
-      []
-    ],
-    [
-      "humidity_pot",
-      "GND",
-      "esp32",
-      "GND",
-      "black",
-      []
-    ],
-    [
-      "humidity_pot",
-      "VCC",
-      "esp32",
-      "3V3",
-      "red",
-      []
-    ],
-    [
-      "humidity_pot",
-      "SIG",
-      "esp32",
-      "35",
-      "green",
-      []
-    ],
-    [
-      "water_level_pot",
-      "GND",
-      "esp32",
-      "GND",
-      "black",
-      []
-    ],
-    [
-      "water_level_pot",
-      "VCC",
-      "esp32",
-      "3V3",
-      "red",
-      []
-    ],
-    [
-      "water_level_pot",
-      "SIG",
-      "esp32",
-      "32",
-      "green",
-      []
-    ],
-    [
-      "pump_led",
-      "GND",
-      "esp32",
-      "GND",
-      "black",
-      []
-    ],
-    [
-      "pump_led",
-      "VCC",
-      "esp32",
-      "25",
-      "red",
-      []
-    ],
-    [
-      "lcd",
-      "GND",
-      "esp32",
-      "GND",
-      "black",
-      []
-    ],
-    [
-      "lcd",
-      "VCC",
-      "esp32",
-      "3V3",
-      "red",
-      []
-    ],
-    [
-      "lcd",
-      "SDA",
-      "esp32",
-      "21",
-      "green",
-      []
-    ],
-    [
-      "lcd",
-      "SCL",
-      "esp32",
-      "22",
-      "orange",
-      []
-    ]
+    ["light1_pot:GND",        "esp32:GND",  "black", []],
+    ["light1_pot:VCC",        "esp32:3V3",  "red",   []],
+    ["light1_pot:SIG",        "esp32:VP",   "green", []],
+
+    ["light2_pot:GND",        "esp32:GND",  "black", []],
+    ["light2_pot:VCC",        "esp32:3V3",  "red",   []],
+    ["light2_pot:SIG",        "esp32:VN",   "green", []],
+
+    ["temp_pot:GND",          "esp32:GND",  "black", []],
+    ["temp_pot:VCC",          "esp32:3V3",  "red",   []],
+    ["temp_pot:SIG",          "esp32:D34",  "green", []],
+
+    ["humidity_pot:GND",      "esp32:GND",  "black", []],
+    ["humidity_pot:VCC",      "esp32:3V3",  "red",   []],
+    ["humidity_pot:SIG",      "esp32:D35",  "green", []],
+
+    ["water_level_pot:GND",   "esp32:GND",  "black", []],
+    ["water_level_pot:VCC",   "esp32:3V3",  "red",   []],
+    ["water_level_pot:SIG",   "esp32:D32",  "green", []],
+
+    ["esp32:D25",             "r1:1",       "green", []],
+    ["r1:2",                  "pump_led:A", "green", []],
+    ["pump_led:K",            "esp32:GND",  "black", []]
   ]
 }
