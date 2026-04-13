@@ -7,58 +7,58 @@
     {
       "type": "wokwi-esp32-devkit-v1",
       "id": "esp32",
-      "top": 50,
-      "left": 200,
+      "top": 30,
+      "left": 300,
       "attrs": {}
     },
     {
       "type": "wokwi-potentiometer",
       "id": "light1_pot",
       "top": 20,
-      "left": -100,
-      "attrs": { "value": "0.5", "label": "Light 1" }
+      "left": 30,
+      "attrs": { "value": "0.5" }
     },
     {
       "type": "wokwi-potentiometer",
       "id": "light2_pot",
-      "top": 110,
-      "left": -100,
-      "attrs": { "value": "0.75", "label": "Light 2" }
+      "top": 120,
+      "left": 30,
+      "attrs": { "value": "0.75" }
     },
     {
       "type": "wokwi-potentiometer",
       "id": "temp_pot",
-      "top": 200,
-      "left": -100,
-      "attrs": { "value": "0.45", "label": "Temperature" }
+      "top": 220,
+      "left": 30,
+      "attrs": { "value": "0.45" }
     },
     {
       "type": "wokwi-potentiometer",
       "id": "humidity_pot",
-      "top": 290,
-      "left": -100,
-      "attrs": { "value": "0.6", "label": "Soil Humidity" }
+      "top": 320,
+      "left": 30,
+      "attrs": { "value": "0.6" }
     },
     {
       "type": "wokwi-potentiometer",
       "id": "water_level_pot",
-      "top": 380,
-      "left": -100,
-      "attrs": { "value": "0.8", "label": "Water Level" }
+      "top": 420,
+      "left": 30,
+      "attrs": { "value": "0.8" }
     },
     {
       "type": "wokwi-resistor",
       "id": "r1",
-      "top": 50,
-      "left": 490,
+      "top": 80,
+      "left": 570,
       "attrs": { "value": "220" }
     },
     {
       "type": "wokwi-led",
       "id": "pump_led",
-      "top": 20,
-      "left": 560,
-      "attrs": { "color": "red", "label": "Pump" }
+      "top": 40,
+      "left": 640,
+      "attrs": { "color": "red" }
     }
   ],
   "connections": [
