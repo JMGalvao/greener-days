@@ -33,7 +33,7 @@ const uint32_t READ_INTERVAL = 2000; // Read sensors every 2 seconds
 void readSensors(SensorData &data);
 void controlPump(bool state);
 void printSensorData(const SensorData &data);
-void simulateSensorChanges();
+void checkAutoWatering();
 
 void setup()
 {
@@ -75,7 +75,7 @@ void loop()
         // Print data to serial
         printSensorData(currentData);
 
-        // Check water level and auto-control pump (optional logic)
+        // Check water level and auto-control pump
         checkAutoWatering();
     }
 

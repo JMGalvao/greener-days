@@ -48,11 +48,14 @@ cd firmware
 # Install dependencies
 pio lib install
 
-# Build the project
-pio run -e heltec_wifi_lora_32_V2
+# Build for simulator (Wokwi)
+pio run -e heltec_wifi_lora_32_V2_sim
+
+# Build for real hardware
+pio run -e heltec_wifi_lora_32_V2_hw
 
 # Upload to device
-pio run -e heltec_wifi_lora_32_V2 --target upload
+pio run -e heltec_wifi_lora_32_V2_hw --target upload
 
 # Monitor serial output
 pio device monitor

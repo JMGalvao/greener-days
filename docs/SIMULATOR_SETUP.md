@@ -26,7 +26,7 @@
 
 3. **Build the Project**
    - Press `Ctrl+Alt+B` in VS Code (PlatformIO build)
-   - Or in terminal: `pio run -e heltec_wifi_lora_32_V2`
+   - Or in terminal: `pio run -e heltec_wifi_lora_32_V2_sim`
 
 4. **Run the Simulator**
    - With `diagram.json` open, press `F1`
@@ -148,7 +148,7 @@ Sensor values are automatically scaled:
 
 | Issue | Solution |
 |-------|----------|
-| "No firmware found" | Build first with `pio run -e heltec_wifi_lora_32_V2` |
+| "No firmware found" | Build first with `pio run -e heltec_wifi_lora_32_V2_sim` |
 | Simulator won't start | Reload VS Code, check WOKWI extension is installed |
 | Potentiometers not responding | Click on the simulator window to focus it |
 | Serial Monitor empty | Check that `Serial.begin(115200)` is called |

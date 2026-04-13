@@ -12,7 +12,7 @@ VS Code → Extensions (Ctrl+Shift+X)
 ### Step 2: Build the Firmware (2 min)
 ```bash
 cd /home/jfgalvao/GreenerDays/greener-days/firmware
-pio run -e heltec_wifi_lora_32_V2
+pio run -e heltec_wifi_lora_32_V2_sim
 ```
 
 **Expected output:**
@@ -102,7 +102,7 @@ Left Panel              Middle         Right Panel
 **Fix:**
 ```bash
 cd firmware
-pio run -e heltec_wifi_lora_32_V2
+pio run -e heltec_wifi_lora_32_V2_sim
 ```
 Wait for `[SUCCESS]` message.
 

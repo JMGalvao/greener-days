@@ -1,0 +1,12 @@
+# Python virtual environment
+.venv/
+
+# PlatformIO build artifacts
+firmware/.pio/
+firmware/.piolibdeps/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store

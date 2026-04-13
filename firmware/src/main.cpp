@@ -138,7 +138,8 @@ void sendDataToCloud(const SensorData &data)
     json += "\"temperature\":" + String(data.temperature, 2) + ",";
     json += "\"soilHumidity\":" + String(data.soilHumidity, 2) + ",";
     json += "\"waterLevel\":" + String(data.waterLevel, 2) + ",";
-    json += "\"pumpStatus\":" + (data.pumpStatus ? "true" : "false") + ",";
+    json += "\"pumpStatus\":";
+    json += data.pumpStatus ? "true," : "false,";
     json += "\"timestamp\":" + String(millis());
     json += "}";
 
