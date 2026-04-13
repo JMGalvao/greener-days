@@ -11,6 +11,12 @@ VS Code → Extensions (Ctrl+Shift+X)
 
 ### Step 2: Build the Firmware (2 min)
 ```bash
+cd /home/jfgalvao/GreenerDays/greener-days
+bash scripts/sim-build.sh
+```
+
+Alternative:
+```bash
 cd /home/jfgalvao/GreenerDays/greener-days/firmware
 pio run -e heltec_wifi_lora_32_V2_sim
 ```
