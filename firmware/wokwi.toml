@@ -1,7 +1,7 @@
 [wokwi]
 version = 1
-firmware = "build/heltec_wifi_lora_32_V2/firmware.bin"
-elf = "build/heltec_wifi_lora_32_V2/firmware.elf"
+firmware = ".pio/build/heltec_wifi_lora_32_V2_sim/firmware.bin"
+elf = ".pio/build/heltec_wifi_lora_32_V2_sim/firmware.elf"
 
 [env]
 WOKWI_SERIAL_BAUDRATE = 115200

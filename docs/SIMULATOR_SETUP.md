@@ -183,6 +183,7 @@ Sensor values are automatically scaled:
 | Issue | Solution |
 |-------|----------|
 | "No firmware found" | Build first with `pio run -e heltec_wifi_lora_32_V2_sim` |
+| "License Error: Invalid License" | In VS Code settings, clear or replace `Wokwi: License Key`. If you don't have a key, run the project on https://wokwi.com (Option 2 in this guide). |
 | Simulator won't start | Reload VS Code, check WOKWI extension is installed |
 | Potentiometers not responding | Click on the simulator window to focus it |
 | Serial Monitor empty | Check that `Serial.begin(115200)` is called |
