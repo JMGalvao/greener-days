@@ -153,31 +153,20 @@ void printSensorData(const SensorData &data)
 
 void checkAutoWatering()
 {
-    // Auto-watering logic: turn on pump if soil humidity is too low
-    // This is just an example - adjust thresholds as needed
+    // Immediate simulator behavior: below 40% -> pump ON, above 70% -> pump OFF.
+    // This makes knob testing deterministic and easy to observe.
+    const float HUMIDITY_ON_THRESHOLD = 40.0;
+    const float HUMIDITY_OFF_THRESHOLD = 70.0;
 
-    static uint32_t pumpOnTime = 0;
-    const uint32_t PUMP_RUN_TIME = 5000;   // Run pump for 5 seconds max
-    const float HUMIDITY_THRESHOLD = 40.0; // Turn on if below 40%
-
-    if (currentData.soilHumidity < HUMIDITY_THRESHOLD && !pumpEnabled)
+    if (currentData.soilHumidity < HUMIDITY_ON_THRESHOLD && !pumpEnabled)
     {
-        // Soil is dry, turn on pump
         controlPump(true);
-        pumpOnTime = millis();
-        Serial.println("\n[AUTO] 🚰 Soil humidity low - Starting automatic watering\n");
+        Serial.println("\n[AUTO] Soil humidity low - Pump ON\n");
     }
-    else if (pumpEnabled && (millis() - pumpOnTime > PUMP_RUN_TIME))
+    else if (currentData.soilHumidity > HUMIDITY_OFF_THRESHOLD && pumpEnabled)
     {
-        // Pump has been on long enough, turn it off
         controlPump(false);
-        Serial.println("\n[AUTO] ⏱️  Pump timeout - Stopping automatic watering\n");
-    }
-    else if (currentData.soilHumidity > 70.0 && pumpEnabled)
-    {
-        // Soil is wet enough, turn off pump
-        controlPump(false);
-        Serial.println("\n[AUTO] ✓ Soil humidity optimal - Stopping pump\n");
+        Serial.println("\n[AUTO] Soil humidity high - Pump OFF\n");
     }
 }
 
