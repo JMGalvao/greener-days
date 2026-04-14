@@ -1,9 +1,8 @@
 {
   "version": 1,
   "author": "GreenerDays Project",
-  "title": "GreenerDays - Plant Monitoring Simulator",
-  "description": "Smart plant monitoring system with simulated sensors",
-  "components": [
+  "editor": "wokwi",
+  "parts": [
     {
       "type": "wokwi-esp32-devkit-v1",
       "id": "esp32",
@@ -62,28 +61,28 @@
     }
   ],
   "connections": [
-    ["light1_pot:GND",        "esp32:GND",  "black", []],
-    ["light1_pot:VCC",        "esp32:3V3",  "red",   []],
-    ["light1_pot:SIG",        "esp32:VP",   "green", []],
+    ["light1_pot:GND",        "esp32:GND",   "black", []],
+    ["light1_pot:VCC",        "esp32:3V3",   "red",   []],
+    ["light1_pot:SIG",        "esp32:IO36",  "green", []],
 
-    ["light2_pot:GND",        "esp32:GND",  "black", []],
-    ["light2_pot:VCC",        "esp32:3V3",  "red",   []],
-    ["light2_pot:SIG",        "esp32:VN",   "green", []],
+    ["light2_pot:GND",        "esp32:GND",   "black", []],
+    ["light2_pot:VCC",        "esp32:3V3",   "red",   []],
+    ["light2_pot:SIG",        "esp32:IO39",  "green", []],
 
-    ["temp_pot:GND",          "esp32:GND",  "black", []],
-    ["temp_pot:VCC",          "esp32:3V3",  "red",   []],
-    ["temp_pot:SIG",          "esp32:D34",  "green", []],
+    ["temp_pot:GND",          "esp32:GND",   "black", []],
+    ["temp_pot:VCC",          "esp32:3V3",   "red",   []],
+    ["temp_pot:SIG",          "esp32:IO34",  "green", []],
 
-    ["humidity_pot:GND",      "esp32:GND",  "black", []],
-    ["humidity_pot:VCC",      "esp32:3V3",  "red",   []],
-    ["humidity_pot:SIG",      "esp32:D35",  "green", []],
+    ["humidity_pot:GND",      "esp32:GND",   "black", []],
+    ["humidity_pot:VCC",      "esp32:3V3",   "red",   []],
+    ["humidity_pot:SIG",      "esp32:IO35",  "green", []],
 
-    ["water_level_pot:GND",   "esp32:GND",  "black", []],
-    ["water_level_pot:VCC",   "esp32:3V3",  "red",   []],
-    ["water_level_pot:SIG",   "esp32:D32",  "green", []],
+    ["water_level_pot:GND",   "esp32:GND",   "black", []],
+    ["water_level_pot:VCC",   "esp32:3V3",   "red",   []],
+    ["water_level_pot:SIG",   "esp32:IO32",  "green", []],
 
-    ["esp32:D25",             "r1:1",       "green", []],
-    ["r1:2",                  "pump_led:A", "green", []],
-    ["pump_led:K",            "esp32:GND",  "black", []]
+    ["esp32:IO25",            "r1:1",        "green", []],
+    ["r1:2",                  "pump_led:A",  "green", []],
+    ["pump_led:K",            "esp32:GND",   "black", []]
   ]
 }
