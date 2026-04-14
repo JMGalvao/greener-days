@@ -4,6 +4,7 @@
 # PlatformIO build artifacts
 firmware/.pio/
 firmware/.piolibdeps/
+firmware/compile_commands.json
 
 # VS Code
 .vscode/
