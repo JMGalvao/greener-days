@@ -4,85 +4,41 @@
   "editor": "wokwi",
   "parts": [
     {
-      "type": "wokwi-esp32-devkit-v1",
-      "id": "esp32",
-      "top": 30,
-      "left": 300,
+      "type": "board-esp32-devkit-v1",
+      "id": "esp",
+      "top": 10,
+      "left": 250,
       "attrs": {}
     },
     {
       "type": "wokwi-potentiometer",
-      "id": "light1_pot",
-      "top": 20,
-      "left": 30,
-      "attrs": { "value": "0.5" }
-    },
-    {
-      "type": "wokwi-potentiometer",
-      "id": "light2_pot",
-      "top": 120,
-      "left": 30,
-      "attrs": { "value": "0.75" }
-    },
-    {
-      "type": "wokwi-potentiometer",
-      "id": "temp_pot",
-      "top": 220,
-      "left": 30,
-      "attrs": { "value": "0.45" }
-    },
-    {
-      "type": "wokwi-potentiometer",
       "id": "humidity_pot",
-      "top": 320,
-      "left": 30,
+      "top": 40,
+      "left": 20,
       "attrs": { "value": "0.6" }
-    },
-    {
-      "type": "wokwi-potentiometer",
-      "id": "water_level_pot",
-      "top": 420,
-      "left": 30,
-      "attrs": { "value": "0.8" }
     },
     {
       "type": "wokwi-resistor",
       "id": "r1",
-      "top": 80,
-      "left": 570,
+      "top": 70,
+      "left": 520,
       "attrs": { "value": "220" }
     },
     {
       "type": "wokwi-led",
       "id": "pump_led",
       "top": 40,
-      "left": 640,
-      "attrs": { "color": "red" }
+      "left": 600,
+      "attrs": { "color": "red", "label": "Pump" }
     }
   ],
   "connections": [
-    ["light1_pot:GND",        "esp32:GND",  "black", []],
-    ["light1_pot:VCC",        "esp32:3V3",  "red",   []],
-    ["light1_pot:SIG",        "esp32:36",   "green", []],
+    ["humidity_pot:VCC", "esp:3V3", "red", []],
+    ["humidity_pot:GND", "esp:GND.1", "black", []],
+    ["humidity_pot:SIG", "esp:35", "green", []],
 
-    ["light2_pot:GND",        "esp32:GND",  "black", []],
-    ["light2_pot:VCC",        "esp32:3V3",  "red",   []],
-    ["light2_pot:SIG",        "esp32:39",   "green", []],
-
-    ["temp_pot:GND",          "esp32:GND",  "black", []],
-    ["temp_pot:VCC",          "esp32:3V3",  "red",   []],
-    ["temp_pot:SIG",          "esp32:34",   "green", []],
-
-    ["humidity_pot:GND",      "esp32:GND",  "black", []],
-    ["humidity_pot:VCC",      "esp32:3V3",  "red",   []],
-    ["humidity_pot:SIG",      "esp32:35",   "green", []],
-
-    ["water_level_pot:GND",   "esp32:GND",  "black", []],
-    ["water_level_pot:VCC",   "esp32:3V3",  "red",   []],
-    ["water_level_pot:SIG",   "esp32:32",   "green", []],
-
-    ["esp32:25",              "r1:1",       "green", []],
-    ["r1:2",                  "pump_led:A",  "green", []],
-    ["pump_led:C",            "esp32:GND",  "black", []]
+    ["esp:25", "r1:1", "green", []],
+    ["r1:2", "pump_led:A", "green", []],
+    ["pump_led:C", "esp:GND.2", "black", []]
   ]
 }

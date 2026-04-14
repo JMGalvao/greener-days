@@ -1,203 +1,68 @@
 #include <Arduino.h>
 
-// ============ SIMULATOR MODE ============
-#define SIMULATOR_MODE 1 // Set to 0 for real hardware
+const int SOIL_HUMIDITY_PIN = 35;
+const int WATER_PUMP_PIN = 25;
 
-// ============ PIN DEFINITIONS ============
-const int LIGHT_SENSOR_1 = 36; // Analog input for light sensor 1
-const int LIGHT_SENSOR_2 = 39; // Analog input for light sensor 2
-const int TEMP_SENSOR = 34;    // Analog input for temperature sensor
-const int SOIL_HUMIDITY = 35;  // Analog input for soil humidity
-const int WATER_LEVEL = 32;    // Analog input for water level
-const int WATER_PUMP = 25;     // Digital output for water pump control
+const uint32_t READ_INTERVAL_MS = 1000;
+uint32_t lastReadMs = 0;
+bool pumpOn = false;
 
-// ============ SENSOR DATA STRUCTURE ============
-struct SensorData
+void setPump(bool state)
 {
-    float light1;
-    float light2;
-    float temperature;
-    float soilHumidity;
-    float waterLevel;
-    bool pumpStatus;
-    uint32_t timestamp;
-};
+    if (pumpOn == state)
+    {
+        return;
+    }
 
-// ============ GLOBAL VARIABLES ============
-SensorData currentData;
-bool pumpEnabled = false;
-uint32_t lastReadTime = 0;
-const uint32_t READ_INTERVAL = 2000; // Read sensors every 2 seconds
+    pumpOn = state;
+    digitalWrite(WATER_PUMP_PIN, pumpOn ? HIGH : LOW);
 
-// ============ FUNCTION DECLARATIONS ============
-void readSensors(SensorData &data);
-void controlPump(bool state);
-void printSensorData(const SensorData &data);
-void checkAutoWatering();
+    Serial.print("[PUMP] ");
+    Serial.println(pumpOn ? "ON" : "OFF");
+}
 
 void setup()
 {
     Serial.begin(115200);
-    delay(1000);
+    delay(300);
 
-    Serial.println("\n\n╔════════════════════════════════════════╗");
-    Serial.println("║  GreenerDays - Plant Monitor Simulator ║");
-    Serial.println("║  Heltec WiFi LoRa 32 V2 (ESP32)        ║");
-    Serial.println("╚════════════════════════════════════════╝\n");
-
-    // Initialize pins
-    pinMode(WATER_PUMP, OUTPUT);
-    digitalWrite(WATER_PUMP, LOW);
-
-    // Configure ADC
+    pinMode(WATER_PUMP_PIN, OUTPUT);
+    digitalWrite(WATER_PUMP_PIN, LOW);
     analogSetAttenuation(ADC_11db);
 
-    Serial.println("[SETUP] Pins initialized");
-    Serial.println("[SETUP] Running in SIMULATOR MODE");
-    Serial.println("[SETUP] Use potentiometers to adjust sensor values");
-    Serial.println("[SETUP] Monitor will be updated every 2 seconds\n");
-
-    delay(2000);
+    Serial.println();
+    Serial.println("GreenerDays simulator baseline");
+    Serial.println("humidity pin: GPIO35, pump pin: GPIO25");
+    Serial.println("rule: humidity < 40% => pump ON, > 70% => pump OFF");
 }
 
 void loop()
 {
-    uint32_t currentTime = millis();
-
-    // Read sensors at regular intervals
-    if (currentTime - lastReadTime >= READ_INTERVAL)
+    uint32_t now = millis();
+    if (now - lastReadMs < READ_INTERVAL_MS)
     {
-        lastReadTime = currentTime;
-
-        // Read all sensors
-        readSensors(currentData);
-
-        // Print data to serial
-        printSensorData(currentData);
-
-        // Check water level and auto-control pump
-        checkAutoWatering();
+        delay(10);
+        return;
     }
 
-    delay(100); // Small delay to prevent overwhelming the serial
-}
+    lastReadMs = now;
 
-// ============ IMPLEMENTATION ============
+    int rawHumidity = analogRead(SOIL_HUMIDITY_PIN);
+    float humidityPct = (rawHumidity / 4095.0f) * 100.0f;
 
-void readSensors(SensorData &data)
-{
-    // Read analog sensors (0-4095 range for ESP32)
-    int raw_light1 = analogRead(LIGHT_SENSOR_1);
-    int raw_light2 = analogRead(LIGHT_SENSOR_2);
-    int raw_temp = analogRead(TEMP_SENSOR);
-    int raw_humidity = analogRead(SOIL_HUMIDITY);
-    int raw_water = analogRead(WATER_LEVEL);
+    Serial.print("[SENSOR] raw=");
+    Serial.print(rawHumidity);
+    Serial.print(" humidity=");
+    Serial.print(humidityPct, 1);
+    Serial.print("% pump=");
+    Serial.println(pumpOn ? "ON" : "OFF");
 
-    // Convert raw values to meaningful data
-    // Mapping: 0-4095 → actual values
-    data.light1 = (raw_light1 / 4095.0) * 100.0;          // 0-100% light
-    data.light2 = (raw_light2 / 4095.0) * 100.0;          // 0-100% light
-    data.temperature = 15.0 + (raw_temp / 4095.0) * 30.0; // 15-45°C
-    data.soilHumidity = (raw_humidity / 4095.0) * 100.0;  // 0-100% humidity
-    data.waterLevel = (raw_water / 4095.0) * 100.0;       // 0-100% water
-    data.pumpStatus = digitalRead(WATER_PUMP) == HIGH;
-    data.timestamp = millis();
-}
-
-void controlPump(bool state)
-{
-    digitalWrite(WATER_PUMP, state ? HIGH : LOW);
-    pumpEnabled = state;
-
-    Serial.print("[PUMP] ");
-    Serial.println(state ? "✓ ON - Watering plant" : "✗ OFF - Idle");
-}
-
-void printSensorData(const SensorData &data)
-{
-    Serial.println("\n┌─────────────────────────────────────┐");
-    Serial.println("│        SENSOR READINGS               │");
-    Serial.println("├─────────────────────────────────────┤");
-
-    // Light sensors
-    Serial.print("│ ☀️  Light 1:      ");
-    Serial.print(data.light1, 1);
-    Serial.println(" %              │");
-
-    Serial.print("│ ☀️  Light 2:      ");
-    Serial.print(data.light2, 1);
-    Serial.println(" %              │");
-
-    // Temperature
-    Serial.print("│ 🌡️  Temperature:  ");
-    Serial.print(data.temperature, 1);
-    Serial.println(" °C           │");
-
-    // Soil humidity
-    Serial.print("│ 💧 Soil Humidity: ");
-    Serial.print(data.soilHumidity, 1);
-    Serial.println(" %              │");
-
-    // Water level
-    Serial.print("│ 💦 Water Level:   ");
-    Serial.print(data.waterLevel, 1);
-    Serial.println(" %              │");
-
-    // Pump status
-    Serial.print("│ 💨 Pump:          ");
-    Serial.println(data.pumpStatus ? "ON ✓              │" : "OFF              │");
-
-    Serial.printf("│ ⏱️  Uptime:        %u ms          │\n", data.timestamp);
-    Serial.println("└─────────────────────────────────────┘");
-}
-
-void checkAutoWatering()
-{
-    // Immediate simulator behavior: below 40% -> pump ON, above 70% -> pump OFF.
-    // This makes knob testing deterministic and easy to observe.
-    const float HUMIDITY_ON_THRESHOLD = 40.0;
-    const float HUMIDITY_OFF_THRESHOLD = 70.0;
-
-    if (currentData.soilHumidity < HUMIDITY_ON_THRESHOLD && !pumpEnabled)
+    if (humidityPct < 40.0f)
     {
-        controlPump(true);
-        Serial.println("\n[AUTO] Soil humidity low - Pump ON\n");
+        setPump(true);
     }
-    else if (currentData.soilHumidity > HUMIDITY_OFF_THRESHOLD && pumpEnabled)
+    else if (humidityPct > 70.0f)
     {
-        controlPump(false);
-        Serial.println("\n[AUTO] Soil humidity high - Pump OFF\n");
-    }
-}
-
-// ============ SERIAL COMMANDS ============
-// You can send commands via Serial Monitor to test pump control
-
-void serialEvent()
-{
-    while (Serial.available())
-    {
-        String command = Serial.readStringUntil('\n');
-        command.toLowerCase();
-
-        if (command == "pump on")
-        {
-            controlPump(true);
-        }
-        else if (command == "pump off")
-        {
-            controlPump(false);
-        }
-        else if (command == "help")
-        {
-            Serial.println("\n📋 Available Commands:");
-            Serial.println("  pump on  - Turn water pump ON");
-            Serial.println("  pump off - Turn water pump OFF");
-            Serial.println("  help     - Show this menu\n");
-        }
-        else if (command != "")
-        {
-            Serial.println("Unknown command. Type 'help' for options.");
-        }
+        setPump(false);
     }
 }
