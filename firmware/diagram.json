@@ -81,7 +81,7 @@
     ["water_level_pot:VCC",   "esp32:3V3",   "red",   []],
     ["water_level_pot:SIG",   "esp32:IO32",  "green", []],
 
-    ["esp32:IO25",            "r1:1",        "green", []],
+    ["esp32:25",              "r1:1",        "green", []],
     ["r1:2",                  "pump_led:A",  "green", []],
     ["pump_led:K",            "esp32:GND",   "black", []]
   ]
